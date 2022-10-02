@@ -1,0 +1,35 @@
+services:
+  tms:
+    use_grid_names: true
+    origin: 'nw'
+
+layers:
+  - name: ngi50k
+    title: "CD:NGI 1:50,000 topographic"
+    sources: [cache_50k]
+
+caches:
+  cache_50k:
+    grids: [xyz]
+    sources: [tms_50k]
+    cache:
+      type: file
+      directory_layout: tms
+
+sources:
+  tms_50k:
+    type: tile
+    url: http://tiler/tiler/tiles/%(z)s/%(x)s/%(y)s.png?pixel_selection=highest&layer=50k
+    grid: xyz
+    coverage:
+      bbox: [16.25, -34.85, 33.0, -22.0]
+      srs: 'EPSG:4326'
+    transparent: true
+    on_error:
+      404:
+        response: transparent
+        cache: true
+
+grids:
+    xyz:
+        base: GLOBAL_WEBMERCATOR

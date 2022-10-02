@@ -1,0 +1,4 @@
+cogeo-mosaic==4.1.0
+titiler.core==0.7.0
+titiler.mosaic==0.7.0
+uvicorn==0.18.3

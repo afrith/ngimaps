@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  mapimages:
+    build: ./mapimages
+    volumes:
+      - "./tiffs:/usr/share/nginx/html"
+  tiler:
+    build: ./tiler
+    environment:
+      - "FIFTYK_MOSAIC_URL=http://mapimages/50k/mosaic-internal.json"
+    depends_on:
+      - mapimages
+  mapproxy:
+    build: ./mapproxy
+    volumes:
+      - "./cache:/mapproxy/cache_data"
+    depends_on:
+      - tiler
+  gateway:
+    build: './gateway'
+    ports:
+      - "8080:80"
+    volumes:
+      - "./cache:/cache"
+    depends_on:
+      - mapproxy
