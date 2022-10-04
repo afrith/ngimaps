@@ -1,3 +1,5 @@
+# Add python 3.11 support to rio-color. Direct dependency should be removed once fix released upstream: https://github.com/mapbox/rio-color/pull/82
+git+https://github.com/Firefishy/rio-color.git@python311-support#egg=rio-color
 cogeo-mosaic==4.1.0
 titiler.core==0.7.1
 titiler.mosaic==0.7.1

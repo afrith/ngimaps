@@ -1,4 +1,4 @@
-FROM python:3.10-bullseye
+FROM python:3.11-rc-bullseye
 
 RUN set -eux; \
   apt-get update; \
