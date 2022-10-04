@@ -1,3 +1,3 @@
-FROM nginx:1.22
+FROM nginx:stable
 COPY default.conf /etc/nginx/conf.d/
 COPY content/ /usr/share/nginx/html/
