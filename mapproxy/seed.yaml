@@ -1,0 +1,15 @@
+seeds:
+  cache_50k:
+    caches: ['cache_50k']
+    coverages: ['south_africa']
+    levels:
+      from: 0
+      to: 9
+    # Force regeneration of tiles
+    # refresh_before:
+    #   minutes: 0
+
+coverages:
+  south_africa:
+    bbox: [16.25, -34.85, 33.0, -22.0]
+    bbox_srs: EPSG:4326
