@@ -6,4 +6,4 @@ The 1,912 individual sheets of the 1:50,000 topographical map series are availab
 
 These COGs are assembled into a [MosaicJSON](https://github.com/developmentseed/mosaicjson-spec) file. A small Python service based on [TiTiler](https://developmentseed.org/titiler/) renders this layer into XYZ ("slippy") tiles. An instance of [MapProxy](https://mapproxy.org/) sits in front of the tiler; it stores rendered tiles in an on-disk cache. Finally, an instance of NGINX sits in front of it all, serving cached tiles directly from the disk and otherwise passing the requests on to MapProxy. The NGINX service also serves the [Leaflet](https://leafletjs.com/)-based frontend for viewing the map.
 
-Note: generating tiles for zoom levels < 9 can be very demanding as it entails assembling many individual sheets into a tile. If you deploy this stack, I suggest pre-seeding those levels before going live.
+Note: generating tiles for zoom levels <= 9 can be very demanding as it entails assembling many individual sheets into a tile. During the first run zoom levels 0 to 10 will be pre-seeded which will delay the initial start-up.

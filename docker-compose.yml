@@ -16,8 +16,23 @@ services:
     build: ./mapproxy
     volumes:
       - "./cache:/mapproxy/cache_data"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     depends_on:
       - tiler
+
+  seed:
+    build: ./mapproxy
+    volumes:
+      - "./cache:/mapproxy/cache_data"
+    depends_on:
+      - tiler
+      - mapproxy # Not strictly necessary, but ensures service is available for gateway service. Should use healthcheck instead.
+    entrypoint: ""
+    command: mapproxy-seed -f /mapproxy/mapproxy.yaml -s /mapproxy/seed.yaml --concurrency 4
 
   gateway:
     build: './gateway'
@@ -26,4 +41,7 @@ services:
     volumes:
       - "./cache:/cache"
     depends_on:
-      - mapproxy
+      seed:
+        condition: service_completed_successfully
+      mapproxy:
+        condition: service_healthy
