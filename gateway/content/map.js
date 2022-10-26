@@ -29,9 +29,6 @@ function createMap(divName) {
     maxZoom: 19
   }), "OpenStreetMap");
 
-  // Add the permalink control
-  map.addControl(new L.Control.Permalink());
-
   // Add URL hash updating
   new L.Hash(map);
 
