@@ -1,4 +1,4 @@
-FROM kartoza/mapproxy
+FROM docker.io/kartoza/mapproxy
 ENV PRODUCTION=true
 COPY mapproxy.yaml /mapproxy/
 COPY seed.yaml /mapproxy/
