@@ -1,11 +1,13 @@
 version: "3.9"
 services:
   mapimages:
+    image: ghcr.io/afrith/ngimaps-mapimages
     build: ./mapimages
     volumes:
       - "./tiffs:/usr/share/nginx/html"
 
   tiler:
+    image: ghcr.io/afrith/ngimaps-tiler
     build: ./tiler
     environment:
       - "FIFTYK_MOSAIC_URL=http://mapimages/50k/mosaic-internal.json"
@@ -13,6 +15,7 @@ services:
       - mapimages
 
   mapproxy:
+    image: ghcr.io/afrith/ngimaps-mapproxy
     build: ./mapproxy
     volumes:
       - "./cache:/mapproxy/cache_data"
@@ -25,6 +28,7 @@ services:
       - tiler
 
   seed:
+    image: ghcr.io/afrith/ngimaps-mapproxy
     build: ./mapproxy
     volumes:
       - "./cache:/mapproxy/cache_data"
@@ -35,6 +39,7 @@ services:
     command: mapproxy-seed -f /mapproxy/mapproxy.yaml -s /mapproxy/seed.yaml --concurrency 4
 
   gateway:
+    image: ghcr.io/afrith/ngimaps-gateway
     build: './gateway'
     ports:
       - "8080:80"
